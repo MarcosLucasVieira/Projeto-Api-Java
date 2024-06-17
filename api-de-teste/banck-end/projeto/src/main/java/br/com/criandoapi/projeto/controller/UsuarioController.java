@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.criandoapi.projeto.DAO.IUsuario;
 import br.com.criandoapi.projeto.model.Usuario;
+import br.com.criandoapi.projeto.repository.IUsuario;
+import br.com.criandoapi.projeto.service.UsuarioService;
 
 @RestController
 @CrossOrigin ("*")
@@ -26,27 +27,30 @@ public class UsuarioController  {
 	@Autowired
 	private IUsuario dao;
 	
+	private UsuarioService usuarioService;
+	
+	public UsuarioController(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
+	}
+	
 	@GetMapping
-	public List<Usuario> listaUsuarios () {
-		return (List<Usuario>) dao.findAll();		
+	public ResponseEntity<List<Usuario>> listaUsuarios () {
+		return ResponseEntity.status(200).body(usuarioService.listarUsuario());		
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Optional<Usuario>> listUsuarios(@PathVariable Integer id){
-		 Optional<Usuario> lista =  dao.findById(id);
-		 return  ResponseEntity.status(200).body(lista);
+		 return  ResponseEntity.status(200).body(usuarioService.findUsuarioById(id));
 	}
 	
 	@PostMapping
 	public ResponseEntity<Usuario> criarUsuario(@RequestBody Usuario usuario) {
-		Usuario usuarioNovo = dao.save(usuario);
-		return ResponseEntity.status(201).body(usuarioNovo);
+		return ResponseEntity.status(201).body(usuarioService.criaUsuario(usuario));
 	}
 	
 	@PutMapping
 	public ResponseEntity<Usuario> editarUsuario(@RequestBody Usuario usuario) {
-		Usuario usuarioNovo = dao.save(usuario);
-		return ResponseEntity.status(201).body(usuarioNovo);
+		return ResponseEntity.status(200).body(usuarioService.editarUsuario(usuario));
 	}
 	
 	@DeleteMapping("/{id}")
