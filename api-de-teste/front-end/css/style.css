@@ -35,3 +35,10 @@ button{
     color: black;
     background-color:rgb(126, 182, 196) ;
 }
+.irLogin{
+    width: 150px;
+    height: 25px;
+    border-radius: 20px;
+    color: black;
+    background-color:rgb(126, 182, 196) ;
+}

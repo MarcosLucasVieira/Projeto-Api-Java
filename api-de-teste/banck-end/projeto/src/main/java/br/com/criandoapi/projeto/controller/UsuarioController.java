@@ -24,9 +24,6 @@ import br.com.criandoapi.projeto.service.UsuarioService;
 @RequestMapping ("/usuarios")
 public class UsuarioController  {
 	
-	@Autowired
-	private IUsuario dao;
-	
 	private UsuarioService usuarioService;
 	
 	public UsuarioController(UsuarioService usuarioService) {
@@ -55,7 +52,7 @@ public class UsuarioController  {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> excluirUsuario (@PathVariable Integer id) {
-		dao.deleteById(id);
+		usuarioService.excluirUsuario(id);
 		return ResponseEntity.status(204).build();
 	}
 }
