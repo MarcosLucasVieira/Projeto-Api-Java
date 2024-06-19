@@ -3,7 +3,7 @@ const Inome = document.querySelector(".nome");
 const Iemail = document.querySelector(".email");
 const Isenha = document.querySelector(".senha");
 const Itel = document.querySelector(".tel");    
-const Ilogin =document.querySelector('.')
+const Ilogin =document.querySelector('.login')
 
 function cadastrar (){
     fetch("http://localhost:8080/usuarios",
